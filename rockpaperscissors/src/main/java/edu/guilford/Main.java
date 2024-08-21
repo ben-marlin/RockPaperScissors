@@ -1,49 +1,82 @@
 package edu.guilford;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        Random rand = new Random();
+        int choice;
+        char comp = 'b';
 
-        // Prompt the user to enter a letter
-        System.out.print("Enter a single letter: ");
-        String response = scanner.nextLine();
+        String response = "whatever";
+        char play = 'w';        
 
-        // Push the user to enter only a single character
-        while (response.length() > 1) {
-            System.out.print("Enter a SINGLE letter: ");
+        while ((play != 'r') && (play != 'p') && (play != 's')) {
+            System.out.print("Type rock, paper, or scissors: ");
             response = scanner.nextLine();
+            response = response.toLowerCase();
+            play = response.charAt(0);
+            System.out.println(play);
         }
 
-        // Converts the string to a char using charAt(0) method
-        char letter = response.toUpperCase().charAt(0);
+        choice = rand.nextInt(3) + 1;
 
-        // Initialize the point value
-        int points = 0;
+        if (choice == 1) {
+            comp = 'r';
+        }
+        
+        if (choice == 2) {
+            comp = 'p';
+        }
+        
+        if (choice == 3) {
+            comp = 's';
+        } 
 
-        // Determine the Scrabble score using if statements with compound logical operators
-        if (letter == 'A' || letter == 'E' || letter == 'I' || letter == 'O' || letter == 'U' ||
-            letter == 'L' || letter == 'N' || letter == 'S' || letter == 'T' || letter == 'R') {
-            points = 1;
-        } else if (letter == 'D' || letter == 'G') {
-            points = 2;
-        } else if (letter == 'B' || letter == 'C' || letter == 'M' || letter == 'P') {
-            points = 3;
-        } else if (letter == 'F' || letter == 'H' || letter == 'V' || letter == 'W' || letter == 'Y') {
-            points = 4;
-        } else if (letter == 'K') {
-            points = 5;
-        } else if (letter == 'J' || letter == 'X') {
-            points = 8;
-        } else if (letter == 'Q' || letter == 'Z') {
-            points = 10;
-        } else {
-            System.out.println("Invalid input. Please enter a valid letter.");
-            return;
+        String feedback = "Player threw ";
+
+        if (play == 'r') {
+            feedback += "rock. ";
         }
 
-        // Output the point value
-        System.out.println("The Scrabble point value for '" + letter + "' is: " + points);
-    }
+        if (play == 'p') {
+            feedback += "paper. ";
+        }
+
+        if (play == 's') {
+            feedback += "scissors. ";
+        }
+
+        feedback += "Computer threw ";
+
+        if (comp == 'r') {
+            feedback += "rock. ";
+        }
+
+        if (comp == 'p') {
+            feedback += "paper. ";
+        }
+
+        if (comp == 's') {
+            feedback += "scissors. ";
+        }
+
+        System.out.println(feedback);
+
+        if (play == comp) {
+            feedback = "It's a draw!";
+        }
+
+        if (((play == 'r') && (comp == 'p')) || ((play == 'p') && (comp == 's')) || ((play == 's') && (comp == 'r'))) {
+            feedback = "You lost!";
+        }
+
+        if (((play == 'r') && (comp == 's')) || ((play == 'p') && (comp == 'r')) || ((play == 's') && (comp == 'p'))) {
+            feedback = "You won!";
+        }
+
+        System.out.println(feedback);
+        }
 }
